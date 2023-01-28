@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace="resSQL">
+	<insert id="reserve" parameterType="res">
+ 		insert into reservation values(num_reservation.nextval
+ 									  ,#{resId}
+ 									  ,#{resDate}
+ 									  ,#{resTime}
+ 									  ,#{resAdult}
+ 									  ,#{resKid}
+ 									  ,#{resMenuA}
+ 									  ,#{resMenuB})
+ 	</insert>
+ 	<select id="getReserve" parameterType="String" resultType="res">
+ 		select * from reservation where resDate=#{resDate}
+ 	</select>
+ 	
+ 	<select id="getResInfo" parameterType="String" resultType="res">
+ 		select * from reservation where resId=#{resId}
+ 	</select>
+ 	
+ 	<select id="getOneRes" parameterType="String" resultType="res">
+ 		select * from reservation where resNum=#{resNum}
+ 	</select>
+ 	
+ 	<update id="resUpdate" parameterType="res">
+ 		update reservation set  resDate=#{resDate}
+								 ,resTime=#{resTime}
+								 ,resAdult=#{resAdult}
+								 ,resKid=#{resKid}
+								 ,resMenuA=#{resMenuA}
+								 ,resMenuB=#{resMenuB}
+ 		 where resNum= #{resNum}
+ 	</update>
+ 	
+ 	<delete id="resCancel" parameterType="String">
+ 		delete reservation where resNum=#{resNum}
+ 	</delete>
+ 	
+ 	<select id="getSales" parameterType="String" resultType="res">
+ 		<![CDATA[		
+ 		select * from reservation where resDate like #{resDate}||'%'
+ 		]]>
+ 	</select>
+  </mapper>
